@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/etTanggal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Tanggal (YYYY-MM-DD)" />
+
+        <EditText
+            android:id="@+id/etJamMulai"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Jam Mulai (HH:MM)" />
+
+        <EditText
+            android:id="@+id/etJamSelesai"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Jam Selesai (HH:MM)" />
+
+        <EditText
+            android:id="@+id/etMetode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Metode Pembayaran (opsional)" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/radioDp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DP"
+                android:checked="true"/>
+            <RadioButton
+                android:id="@+id/radioFull"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Full" />
+        </RadioGroup>
+
+        <CheckBox
+            android:id="@+id/cbRepeat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ulang setiap minggu (4x)" />
+
+        <Button
+            android:id="@+id/btnBooking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Kirim Booking" />
+
+        <EditText
+            android:id="@+id/etLapanganId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ID Lapangan"
+            android:inputType="number" />
+
+
+    </LinearLayout>
+</ScrollView>
