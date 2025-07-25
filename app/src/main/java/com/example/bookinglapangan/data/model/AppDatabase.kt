@@ -4,10 +4,15 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+<<<<<<< HEAD
 import com.example.bookinglapangan.data.local.BookingEntity
 import com.example.bookinglapangan.ui.booking.BookingDao
 
 @Database(entities = [BookingEntity::class], version = 1)
+=======
+
+@Database(entities = [Booking::class], version = 1)
+>>>>>>> 0f717ec40a751538100d5e67f9067b42546afb5e
 abstract class AppDatabase : RoomDatabase() {
     abstract fun bookingDao(): BookingDao
 

@@ -82,6 +82,7 @@ dependencies {
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 
+<<<<<<< HEAD
     //retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
@@ -91,4 +92,6 @@ dependencies {
     implementation ("com.google.code.gson:gson:2.10")
 
 
+=======
+>>>>>>> 0f717ec40a751538100d5e67f9067b42546afb5e
 }

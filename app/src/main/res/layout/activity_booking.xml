@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+=======
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+>>>>>>> 0f717ec40a751538100d5e67f9067b42546afb5e
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:padding="16dp"
         android:orientation="vertical">
 
@@ -69,5 +77,80 @@
             android:inputType="number" />
 
 
+=======
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/tvBookingTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Form Booking Lapangan"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Nama Pemesan -->
+        <EditText
+            android:id="@+id/etNama"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nama Pemesan"
+            android:inputType="textPersonName"
+            android:layout_marginBottom="12dp"
+            android:padding="12dp"
+            android:background="@android:drawable/edit_text" />
+
+        <!-- Waktu Booking -->
+        <EditText
+            android:id="@+id/etWaktu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Waktu Booking (misal: 17.00 - 18.00)"
+            android:inputType="text"
+            android:layout_marginBottom="12dp"
+            android:padding="12dp"
+            android:background="@android:drawable/edit_text" />
+
+        <!-- Pilih Lapangan dari Dropdown -->
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/etPilihLapangan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Pilih Lapangan"
+            android:inputType="none"
+            android:layout_marginBottom="8dp"
+            android:padding="12dp"
+            android:background="@android:drawable/edit_text" />
+
+        <!-- Status Lapangan -->
+        <TextView
+            android:id="@+id/tvStatusLapangan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Status: -"
+            android:textColor="#333333"
+            android:textSize="14sp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Tombol Simpan -->
+        <Button
+            android:id="@+id/btnSimpan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Simpan Booking"
+            android:backgroundTint="#4CAF50"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Daftar Booking -->
+        <TextView
+            android:id="@+id/tvList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Daftar Booking Akan Muncul di Sini"
+            android:textSize="14sp"
+            android:textColor="#333333" />
+>>>>>>> 0f717ec40a751538100d5e67f9067b42546afb5e
     </LinearLayout>
 </ScrollView>
