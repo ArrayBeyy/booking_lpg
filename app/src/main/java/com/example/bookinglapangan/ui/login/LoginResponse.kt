@@ -1,13 +1,12 @@
 package com.example.bookinglapangan.ui.login
 
 data class LoginResponse(
-    val success: Boolean,
-    val message: String,
-    val user: User?
+    val token: String,
+    val user: User
 )
 
 data class User(
     val id: Int,
-    val email: String,
-    val name: String?
+    val name: String,
+    val email: String
 )

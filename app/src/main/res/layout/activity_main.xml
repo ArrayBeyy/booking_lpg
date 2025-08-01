@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true"
     android:background="#F5F5F5">
 
@@ -15,25 +15,25 @@
         <!-- Header -->
         <TextView
             android:id="@+id/tvWelcome"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sewa Lapangan"
-            android:textSize="24sp"
+            android:textSize="28sp"
             android:textStyle="bold"
-            android:textColor="#000000"
-            android:layout_gravity="center_horizontal"
-            android:paddingTop="8dp"
-            android:paddingBottom="16dp" />
+            android:textColor="#212121"
+            android:gravity="center"
+            android:paddingVertical="16dp" />
 
         <!-- Banner -->
         <ImageView
             android:id="@+id/imageBanner"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_height="200dp"
             android:scaleType="centerCrop"
-            android:src="@color/cardview_dark_background"
-            android:background="#CCCCCC"
-            android:layout_marginBottom="16dp" />
+            android:src="@drawable/bt_bg"
+            android:background="#DDDDDD"
+            android:layout_marginBottom="24dp"
+            android:contentDescription="Banner" />
 
         <!-- Menu Grid -->
         <GridLayout
@@ -41,123 +41,156 @@
             android:layout_height="wrap_content"
             android:columnCount="2"
             android:rowCount="2"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="24dp"
+            android:alignmentMode="alignMargins"
+            android:rowOrderPreserved="false"
             android:useDefaultMargins="true">
 
-            <!-- Menu 1 -->
-            <LinearLayout
+            <!-- Menu Item -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:padding="16dp"
-                android:background="@color/white">
+                android:layout_margin="8dp"
+                app:cardElevation="4dp"
+                app:cardCornerRadius="12dp">
 
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/icon_icon"
-                    android:contentDescription="Booking" />
-
-                <!-- Tambahkan ke activity_main.xml -->
-                <Button
-                    android:id="@+id/btnCekLapangan"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Cek Lapangan"
-                    android:layout_marginTop="16dp" />
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="16dp">
 
-            </LinearLayout>
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/search_bg"
+                        android:contentDescription="Cek Lapangan" />
 
-            <!-- Menu 2 -->
-            <LinearLayout
+                    <Button
+                        android:id="@+id/btnCekLapangan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Cek Lapangan"
+                        android:layout_marginTop="12dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Riwayat Booking -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:padding="16dp"
-                android:background="@color/white">
+                android:layout_margin="8dp"
+                app:cardElevation="4dp"
+                app:cardCornerRadius="12dp">
 
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/icon_icon"
-                    android:contentDescription="Riwayat" />
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Riwayat"
-                    android:textSize="14sp"
-                    android:layout_marginTop="8dp" />
-            </LinearLayout>
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="16dp">
 
-            <!-- Menu 3 -->
-            <LinearLayout
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/history_bg"
+                        android:contentDescription="Riwayat" />
+
+                    <Button
+                        android:id="@+id/btnHistoryBooking"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Riwayat Booking"
+                        android:layout_marginTop="12dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Promo -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:padding="16dp"
-                android:background="@color/white">
+                android:layout_margin="8dp"
+                app:cardElevation="4dp"
+                app:cardCornerRadius="12dp">
 
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/icon_icon"
-                    android:contentDescription="Promo" />
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Promo"
-                    android:textSize="14sp"
-                    android:layout_marginTop="8dp" />
-            </LinearLayout>
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="16dp">
 
-            <!-- Menu 4 -->
-            <LinearLayout
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/cart_bg"
+                        android:contentDescription="Promo" />
+
+                    <Button
+                        android:id="@+id/btnPenjualan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Store"
+                        android:layout_marginTop="16dp"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Profil -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:padding="16dp"
-                android:background="@color/white">
+                android:layout_margin="8dp"
+                app:cardElevation="4dp"
+                app:cardCornerRadius="12dp">
 
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/icon_icon"
-                    android:contentDescription="Akun" />
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Akun"
-                    android:textSize="14sp"
-                    android:layout_marginTop="8dp" />
-            </LinearLayout>
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/profile_bg"
+                        android:contentDescription="Profil" />
+
+                    <Button
+                        android:id="@+id/btnProfil"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Profil Saya"
+                        android:layout_marginTop="12dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
         </GridLayout>
 
-        <!-- CTA Booking -->
+        <!-- Booking Sekarang -->
         <Button
             android:id="@+id/btnBooking"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Booking Sekarang"
-            android:backgroundTint="#4CAF50"
+            android:backgroundTint="#388E3C"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
-            android:layout_marginTop="8dp" />
+            android:layout_marginBottom="12dp" />
+
+        <!-- Logout -->
         <Button
             android:id="@+id/btnLogout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Logout" />
+            android:text="Logout"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#D32F2F" />
 
     </LinearLayout>
 </ScrollView>

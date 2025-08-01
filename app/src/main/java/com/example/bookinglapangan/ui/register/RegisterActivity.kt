@@ -18,11 +18,15 @@ class RegisterActivity : AppCompatActivity() {
         val etEmail = findViewById<EditText>(R.id.etEmail)
         val etPassword = findViewById<EditText>(R.id.etPassword)
         val btnRegister = findViewById<Button>(R.id.btnRegister)
+        val etCabang = findViewById<EditText>(R.id.etCabang)
+
 
         btnRegister.setOnClickListener {
             val name = etName.text.toString()
             val email = etEmail.text.toString()
             val password = etPassword.text.toString()
+            val cabang = etCabang.text.toString().trim()
+
 
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Email dan password wajib diisi", Toast.LENGTH_SHORT).show()
@@ -30,7 +34,7 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             val session = SessionManager(this)
-            session.saveUser(email, password, name)
+            session.saveUser(email, password, name, cabang)
 
             Toast.makeText(this, "Registrasi berhasil", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, LoginActivity::class.java))

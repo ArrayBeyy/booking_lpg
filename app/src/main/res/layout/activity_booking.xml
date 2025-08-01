@@ -1,156 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-<<<<<<< HEAD
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-=======
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
->>>>>>> 0f717ec40a751538100d5e67f9067b42546afb5e
+    android:padding="16dp">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-<<<<<<< HEAD
-        android:padding="16dp"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/etTanggal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Tanggal (YYYY-MM-DD)" />
-
-        <EditText
-            android:id="@+id/etJamMulai"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Jam Mulai (HH:MM)" />
-
-        <EditText
-            android:id="@+id/etJamSelesai"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Jam Selesai (HH:MM)" />
-
-        <EditText
-            android:id="@+id/etMetode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Metode Pembayaran (opsional)" />
-
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <RadioButton
-                android:id="@+id/radioDp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="DP"
-                android:checked="true"/>
-            <RadioButton
-                android:id="@+id/radioFull"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Full" />
-        </RadioGroup>
-
-        <CheckBox
-            android:id="@+id/cbRepeat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ulang setiap minggu (4x)" />
-
-        <Button
-            android:id="@+id/btnBooking"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Kirim Booking" />
-
-        <EditText
-            android:id="@+id/etLapanganId"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="ID Lapangan"
-            android:inputType="number" />
-
-
-=======
         android:orientation="vertical"
-        android:padding="24dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tvBookingTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Form Booking Lapangan"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="24dp" />
-
-        <!-- Nama Pemesan -->
+        <!-- Nama -->
         <EditText
             android:id="@+id/etNama"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Nama Pemesan"
             android:inputType="textPersonName"
-            android:layout_marginBottom="12dp"
-            android:padding="12dp"
-            android:background="@android:drawable/edit_text" />
+            android:layout_marginBottom="12dp" />
 
-        <!-- Waktu Booking -->
+        <!-- Tanggal -->
         <EditText
-            android:id="@+id/etWaktu"
+            android:id="@+id/etTanggal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Waktu Booking (misal: 17.00 - 18.00)"
-            android:inputType="text"
-            android:layout_marginBottom="12dp"
-            android:padding="12dp"
-            android:background="@android:drawable/edit_text" />
+            android:hint="Tanggal (dd-mm-yyyy)"
+            android:inputType="date"
+            android:layout_marginBottom="12dp" />
 
-        <!-- Pilih Lapangan dari Dropdown -->
-        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+        <!-- Jam Mulai -->
+        <EditText
+            android:id="@+id/etJamMulai"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Jam Mulai (HH:mm)"
+            android:inputType="time"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Jam Selesai -->
+        <EditText
+            android:id="@+id/etJamSelesai"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Jam Selesai (HH:mm)"
+            android:inputType="time"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Pilih Lapangan -->
+        <AutoCompleteTextView
             android:id="@+id/etPilihLapangan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Pilih Lapangan"
-            android:inputType="none"
-            android:layout_marginBottom="8dp"
-            android:padding="12dp"
-            android:background="@android:drawable/edit_text" />
+            android:inputType="text"
+            android:layout_marginBottom="12dp" />
 
         <!-- Status Lapangan -->
         <TextView
             android:id="@+id/tvStatusLapangan"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Status: -"
-            android:textColor="#333333"
-            android:textSize="14sp"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="20dp"
+            android:textStyle="italic" />
 
-        <!-- Tombol Simpan -->
+        <RadioGroup
+            android:id="@+id/rgStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <RadioButton
+                android:id="@+id/rbFull"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Full" />
+
+            <RadioButton
+                android:id="@+id/rbDp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DP" />
+        </RadioGroup>
+
+
+        <!-- Tombol Booking -->
         <Button
-            android:id="@+id/btnSimpan"
+            android:id="@+id/btnBooking"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Simpan Booking"
-            android:backgroundTint="#4CAF50"
-            android:textColor="#FFFFFF"
-            android:layout_marginBottom="24dp" />
+            android:text="Kirim Booking" />
 
-        <!-- Daftar Booking -->
-        <TextView
-            android:id="@+id/tvList"
+        <Button
+            android:id="@+id/btnBayarSekarang"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Daftar Booking Akan Muncul di Sini"
-            android:textSize="14sp"
-            android:textColor="#333333" />
->>>>>>> 0f717ec40a751538100d5e67f9067b42546afb5e
+            android:layout_marginTop="12dp"
+            android:text="Bayar Sekarang"
+            android:visibility="gone" />
+
     </LinearLayout>
 </ScrollView>

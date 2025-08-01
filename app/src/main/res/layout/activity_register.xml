@@ -1,53 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<<<<<<< HEAD
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="24dp"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <EditText
-        android:id="@+id/etName"
-        android:hint="Nama"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <EditText
-        android:id="@+id/etEmail"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <EditText
-        android:id="@+id/etPassword"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/btnRegister"
-        android:text="Register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-=======
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="24dp"
     android:gravity="center">
 
+    <!-- Judul Form -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Register Akun"
         android:textSize="20sp"
+        android:textStyle="bold"
         android:layout_marginBottom="24dp" />
 
+    <!-- Nama -->
+    <EditText
+        android:id="@+id/etName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nama"
+        android:inputType="textPersonName"
+        android:layout_marginBottom="12dp" />
+
+    <!-- Email -->
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="match_parent"
@@ -56,6 +34,7 @@
         android:inputType="textEmailAddress"
         android:layout_marginBottom="12dp" />
 
+    <!-- Password -->
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
@@ -64,10 +43,17 @@
         android:inputType="textPassword"
         android:layout_marginBottom="24dp" />
 
+    <EditText
+        android:id="@+id/etCabang"
+        android:hint="Cabang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- Tombol Register -->
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Daftar" />
->>>>>>> 0f717ec40a751538100d5e67f9067b42546afb5e
+
 </LinearLayout>

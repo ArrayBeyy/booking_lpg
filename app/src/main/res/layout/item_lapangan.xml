@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="12dp">
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:layout_margin="8dp"
+    android:background="@drawable/bg_card_lapangan">
 
     <TextView
         android:id="@+id/tvNamaLapangan"
-        android:layout_width="0dp"
-        android:layout_weight="1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Lapangan A"
+        android:text="Nama Lapangan"
+        android:textStyle="bold"
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/tvStatus"
+        android:id="@+id/tvLokasiLapangan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="tersedia"
-        android:textSize="14sp"
-        android:textStyle="bold" />
+        android:text="Lokasi: ..." />
+
+    <TextView
+        android:id="@+id/tvHargaLapangan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Harga: Rp 100.000" />
 </LinearLayout>
+
+
