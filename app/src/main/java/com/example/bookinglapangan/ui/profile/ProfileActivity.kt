@@ -16,14 +16,15 @@ class ProfileActivity : AppCompatActivity() {
 
         val session = SessionManager(this)
 
-        // Ambil data user yang disimpan saat register/login
-        val name = session.getName() ?: "Nama tidak tersedia"
-        val email = session.getEmail() ?: "Email tidak tersedia"
-        val cabang = session.getCabang() ?: "Cabang tidak tersedia"
+        val name = session.getName() ?: "-"
+        val email = session.getEmail() ?: "-"
+        val cabang = session.getCabang() ?: "-"
+        val userId = session.getUserId()
 
-        // Tampilkan ke TextView
+        // Tampilkan ke TextView Profile
         binding.tvNama.text = name
         binding.tvEmail.text = email
         binding.tvCabang.text = cabang
+        binding.tvUserId.text = "ID: $userId"
     }
 }

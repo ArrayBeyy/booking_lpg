@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Bookinglapangan">
         <activity
+            android:name=".ui.QR.ScanQrActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.store.PenjualanActivity"
             android:exported="false" />
         <activity
@@ -25,16 +28,15 @@
         <activity android:name=".ui.booking.HistoryBookingActivity" />
         <activity
             android:name=".ui.login.LoginActivity"
+            android:exported="false"/>
+        <activity android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- MainActivity -->
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" /> <!-- BookingActivity -->
+        </activity>
+        <!-- BookingActivity -->
         <activity
             android:name=".ui.booking.BookingActivity"
             android:exported="false" /> <!-- RegisterActivity -->

@@ -1,196 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:fillViewport="true"
-    android:background="#F5F5F5">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <!-- Content ScrollView -->
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:clipToPadding="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <!-- Header -->
-        <TextView
-            android:id="@+id/tvWelcome"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sewa Lapangan"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:textColor="#212121"
-            android:gravity="center"
-            android:paddingVertical="16dp" />
+            android:orientation="vertical">
 
-        <!-- Banner -->
-        <ImageView
-            android:id="@+id/imageBanner"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/bt_bg"
-            android:background="#DDDDDD"
-            android:layout_marginBottom="24dp"
-            android:contentDescription="Banner" />
-
-        <!-- Menu Grid -->
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:columnCount="2"
-            android:rowCount="2"
-            android:layout_marginBottom="24dp"
-            android:alignmentMode="alignMargins"
-            android:rowOrderPreserved="false"
-            android:useDefaultMargins="true">
-
-            <!-- Menu Item -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
+            <!-- Header -->
+            <TextView
+                android:id="@+id/tvWelcome"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                app:cardElevation="4dp"
-                app:cardCornerRadius="12dp">
+                android:text="Sewa Lapangan"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="#212121"
+                android:gravity="center"
+                android:paddingVertical="16dp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="16dp">
-
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:src="@drawable/search_bg"
-                        android:contentDescription="Cek Lapangan" />
-
-                    <Button
-                        android:id="@+id/btnCekLapangan"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Cek Lapangan"
-                        android:layout_marginTop="12dp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Riwayat Booking -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                app:cardElevation="4dp"
-                app:cardCornerRadius="12dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="16dp">
-
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:src="@drawable/history_bg"
-                        android:contentDescription="Riwayat" />
-
-                    <Button
-                        android:id="@+id/btnHistoryBooking"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Riwayat Booking"
-                        android:layout_marginTop="12dp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
+            <!-- Banner -->
+            <ImageView
+                android:id="@+id/imageBanner"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bt_bg"
+                android:layout_marginBottom="24dp"
+                android:contentDescription="Banner" />
             <!-- Promo -->
             <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
+                android:layout_width="148dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
                 android:layout_margin="8dp"
-                app:cardElevation="4dp"
-                app:cardCornerRadius="12dp">
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="154dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:gravity="center"
+                    android:orientation="vertical"
                     android:padding="16dp">
 
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:src="@drawable/cart_bg"
-                        android:contentDescription="Promo" />
+                        android:contentDescription="Promo"
+                        android:src="@drawable/cart_bg" />
 
                     <Button
                         android:id="@+id/btnPenjualan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Store"
-                        android:layout_marginTop="16dp"/>
+                        android:layout_marginTop="16dp"
+                        android:text="Store" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Profil -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
+
+            <!-- Booking & Logout Buttons -->
+            <Button
+                android:id="@+id/btnBooking"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                app:cardElevation="4dp"
-                app:cardCornerRadius="12dp">
+                android:text="Booking Sekarang"
+                android:backgroundTint="#388E3C"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="16dp">
+            <Button
+                android:id="@+id/btnLogout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Logout"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#D32F2F" />
 
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:src="@drawable/profile_bg"
-                        android:contentDescription="Profil" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
-                    <Button
-                        android:id="@+id/btnProfil"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Profil Saya"
-                        android:layout_marginTop="12dp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </GridLayout>
+    <!-- FloatingActionButton QR di Tengah Bawah -->
 
-        <!-- Booking Sekarang -->
-        <Button
-            android:id="@+id/btnBooking"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Booking Sekarang"
-            android:backgroundTint="#388E3C"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:layout_marginBottom="12dp" />
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
-        <!-- Logout -->
-        <Button
-            android:id="@+id/btnLogout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Logout"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#D32F2F" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnScanQr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="32dp"
+        app:srcCompat="@drawable/ic_camera"
+        app:backgroundTint="@color/purple_500"
+        app:tint="@android:color/white" />
 
-    </LinearLayout>
-</ScrollView>
+    <!-- Bottom Navigation View -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@android:color/white"
+        app:menu="@menu/bottom_nav_menu"
+        app:fabCradleMargin="12dp"
+        app:fabCradleRoundedCornerRadius="28dp"
+        app:itemIconTint="@color/nav_item_color"
+        app:itemTextColor="@color/nav_item_color"
+        app:labelVisibilityMode="labeled" />
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:backgroundTint="@android:color/white"
+        app:fabCradleMargin="12dp"
+        app:fabCradleRoundedCornerRadius="28dp"
+        app:hideOnScroll="false"
+        app:fabAlignmentMode="center" />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

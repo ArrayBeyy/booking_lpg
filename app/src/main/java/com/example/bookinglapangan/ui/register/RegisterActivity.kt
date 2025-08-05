@@ -35,6 +35,7 @@ class RegisterActivity : AppCompatActivity() {
 
             val session = SessionManager(this)
             session.saveUser(email, password, name, cabang)
+            session.saveUserId(1)
 
             Toast.makeText(this, "Registrasi berhasil", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, LoginActivity::class.java))

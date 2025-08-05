@@ -7,10 +7,12 @@ import com.example.bookinglapangan.ui.booking.BookingRequest
 import com.example.bookinglapangan.ui.login.LoginRequest
 import com.example.bookinglapangan.ui.login.LoginResponse
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Path
@@ -32,9 +34,12 @@ interface ApiService {
     @GET("bookings/all")
     suspend fun getAllBookings(): Response<BookingHistoryResponse>*/
 
-    @POST("booking/{id}/upload-bukti")
+    @Multipart
+    @POST("upload-bukti")
     fun uploadBukti(
-        @Path("id") bookingId: Int,
-        @Part buktiBayar: MultipartBody.Part
+        @Part("nama") nama: RequestBody,
+        @Part("cabang") cabang: RequestBody,
+        @Part bukti_bayar: MultipartBody.Part
     ): Call<ApiResponse>
+
 }

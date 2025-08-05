@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Outer Border Lapangan -->
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M3,3h18v18h-18z"/>
+
+    <!-- Inner Lapangan Area (Putih) -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M4,4h16v16h-16z"/>
+
+    <!-- Net Line (Garis Tengah Vertikal) -->
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M12,4v16"/>
+
+    <!-- Service Lines Horizontal -->
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M4,8h16"/>
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M4,16h16"/>
+
+    <!-- Shuttlecock Icon (Segitiga di tengah) -->
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M11.5,11l0.5,-1 0.5,1h-1z"/>
+</vector>

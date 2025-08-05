@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "621533678210",
+    "project_id": "bookinglapangan-ced00",
+    "storage_bucket": "bookinglapangan-ced00.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:621533678210:android:1b065137cf46fff1e7029b",
+        "android_client_info": {
+          "package_name": "com.example.bookinglapangan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZAj9Qblxajzf8WEsF7ZIc2zrz2LgF978"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

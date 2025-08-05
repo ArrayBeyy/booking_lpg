@@ -3,6 +3,7 @@
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
+    <string name="default_web_client_id">57431131411-e0eqv0jm7qpn19jb2iq63un0l8vdh6m9.apps.googleusercontent.com</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 

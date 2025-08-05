@@ -19,6 +19,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
 import java.text.NumberFormat
+import okhttp3.RequestBody.Companion.toRequestBody
 
 class ManualPaymentActivity : AppCompatActivity() {
 
@@ -71,7 +72,7 @@ class ManualPaymentActivity : AppCompatActivity() {
     }
 
     private fun uploadToServer(uri: Uri?) {
-        uri?.let { selectedUri: Uri ->
+        uri?.let { selectedUri ->
             val filePath = getRealPathFromURI(selectedUri)
             if (filePath == null) {
                 Toast.makeText(this, "Gagal mengambil file", Toast.LENGTH_SHORT).show()
@@ -82,8 +83,15 @@ class ManualPaymentActivity : AppCompatActivity() {
             val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
             val body = MultipartBody.Part.createFormData("bukti_bayar", file.name, requestFile)
 
+            // Data nama & cabang (bisa ambil dari SessionManager kalau sudah login)
+            val nama = "Nama User" // Ganti ini dengan SessionManager.getName()
+            val cabang = "Cabang User" // Ganti ini dengan SessionManager.getCabang()
+
+            val namaBody = nama.toRequestBody("text/plain".toMediaTypeOrNull())
+            val cabangBody = cabang.toRequestBody("text/plain".toMediaTypeOrNull())
+
             val api = RetrofitClient.apiService
-            api.uploadBukti(bookingId, body).enqueue(object : Callback<ApiResponse> {
+            api.uploadBukti(namaBody, cabangBody, body).enqueue(object : Callback<ApiResponse> {
                 override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
                     if (response.isSuccessful) {
                         Toast.makeText(this@ManualPaymentActivity, "Bukti berhasil dikirim", Toast.LENGTH_SHORT).show()
