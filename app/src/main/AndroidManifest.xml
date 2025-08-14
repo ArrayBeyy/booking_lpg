@@ -20,8 +20,10 @@
             android:name=".ui.store.PenjualanActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.payment.ManualPaymentActivity"
-            android:exported="false" />
+            android:name=".ui.payment.XenditWebViewActivity"
+            android:exported="true"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.profile.ProfileActivity"
             android:exported="false" />
@@ -42,7 +44,7 @@
             android:exported="false" /> <!-- RegisterActivity -->
         <activity
             android:name=".ui.register.RegisterActivity"
-            android:exported="false" /> <!-- LapanganActivity -->
+            android:exported="false" />
         <activity
             android:name=".ui.lapangan.LapanganActivity"
             android:exported="false" />

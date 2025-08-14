@@ -44,5 +44,22 @@ class SessionManager(context: Context) {
     fun clearSession() {
         prefs.edit().clear().apply()
     }
+
+    fun setLoginStatus(isLoggedIn: Boolean) {
+        val editor = prefs.edit()
+        editor.putBoolean("IS_LOGGED_IN", isLoggedIn)
+        editor.apply()
+    }
+
+    fun isLoggedIn(): Boolean {
+        return prefs.getBoolean("IS_LOGGED_IN", false)
+    }
+
+    fun logout() {
+        val editor = prefs.edit()
+        editor.clear() // atau hanya hapus nama/email/password/IS_LOGGED_IN
+        editor.apply()
+    }
+
 }
 

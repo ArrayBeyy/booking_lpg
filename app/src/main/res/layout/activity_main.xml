@@ -125,16 +125,5 @@
         app:itemTextColor="@color/nav_item_color"
         app:labelVisibilityMode="labeled" />
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomAppBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:backgroundTint="@android:color/white"
-        app:fabCradleMargin="12dp"
-        app:fabCradleRoundedCornerRadius="28dp"
-        app:hideOnScroll="false"
-        app:fabAlignmentMode="center" />
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

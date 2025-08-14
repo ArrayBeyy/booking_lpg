@@ -1,8 +1,10 @@
 package com.example.bookinglapangan.data.api
 
-import com.example.bookinglapangan.ui.Lapangan.Lapangan
+import com.example.bookinglapangan.data.remote.CreatePaymentReq
+import com.example.bookinglapangan.data.remote.CreatePaymentRes
+import com.example.bookinglapangan.data.remote.XenditResponse
+import com.example.bookinglapangan.data.remote.StatusRes
 import com.example.bookinglapangan.ui.Lapangan.LapanganResponse
-import com.example.bookinglapangan.ui.booking.BookingHistoryResponse
 import com.example.bookinglapangan.ui.booking.BookingRequest
 import com.example.bookinglapangan.ui.login.LoginRequest
 import com.example.bookinglapangan.ui.login.LoginResponse
@@ -41,5 +43,16 @@ interface ApiService {
         @Part("cabang") cabang: RequestBody,
         @Part bukti_bayar: MultipartBody.Part
     ): Call<ApiResponse>
+
+    /*@POST("xendit/invoice")
+    suspend fun createPayment(
+        @Body body: Map<String, @JvmSuppressWildcards Any>
+    ): XenditResponse*/
+
+    @POST("xendit/create-payment")
+    suspend fun createPayment(@Body body: Map<String, @JvmSuppressWildcards Any>): XenditResponse
+
+    @GET("xendit/status/{external_id}")
+    suspend fun getPaymentStatus(@Path("external_id") externalId: String): Response<StatusRes>
 
 }

@@ -1,58 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <!-- Tombol Back -->
-    <ImageButton
-        android:id="@+id/btnBack"
-        android:src="@drawable/arrow_bg"
-        android:padding="12dp"
-        android:contentDescription="Back"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="48dp"
+        android:padding="8dp" android:gravity="center_vertical">
+        <TextView
+            android:id="@+id/tvTitle"
+            android:text="Pembayaran"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/tvClose"
+            android:text="Tutup"
+            android:textColor="@android:color/holo_red_dark"
+            android:padding="8dp"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+    </LinearLayout>
 
-    <TextView
-        android:text="Lakukan Pembayaran"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginTop="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:id="@+id/tvRekening"
-        android:text="Transfer ke: BCA 1234567890 a.n Deltagrup"
-        android:textSize="16sp"
-        android:layout_marginTop="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:id="@+id/tvTotalBayar"
-        android:text="Total: Rp 100.000"
-        android:textSize="16sp"
-        android:layout_marginTop="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <Button
-        android:id="@+id/btnUploadBukti"
-        android:text="Upload Bukti Bayar"
-        android:layout_marginTop="24dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <ImageView
-        android:id="@+id/imgPreview"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        android:layout_marginTop="8dp"
+    <ProgressBar
+        android:id="@+id/progress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent" android:layout_height="3dp"
         android:visibility="gone"/>
 
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent" android:layout_height="0dp"
+        android:layout_weight="1" />
 </LinearLayout>
+

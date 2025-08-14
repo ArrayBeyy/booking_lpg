@@ -93,6 +93,13 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:34.0.0"))
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-analytics")
+
+    //xendit
+    implementation ("com.squareup.retrofit2:converter-moshi:2.11.0")
+    implementation ("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation ("androidx.browser:browser:1.7.0") // Chrome Custom Tabs
+    implementation ("com.squareup.moshi:moshi-kotlin:1.15.1")
+
 }
 
 apply(plugin = "com.google.gms.google-services")
