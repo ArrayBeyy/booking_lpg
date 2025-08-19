@@ -3,6 +3,7 @@ package com.example.bookinglapangan.ui.login
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -23,11 +24,27 @@ import com.google.firebase.auth.GoogleAuthProvider
 
 class LoginActivity : AppCompatActivity() {
 
+    companion object {
+        const val EXTRA_REDIRECT_TO = "redirectTo"
+
+        // Terima SEMUA varian string yang mungkin kamu pakai di tempat lain
+        private val HISTORY_ALIASES = setOf(
+            "history", "History", "bookingHistory", "BookingHistory",
+            "HistoryBookingActivity", "BookingHistoryActivity"
+        )
+        private val PROFILE_ALIASES = setOf(
+            "profile", "Profile", "userProfile", "UserProfile",
+            "ProfileActivity"
+        )
+    }
+
     private lateinit var binding: ActivityLoginBinding
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var firebaseAuth: FirebaseAuth
 
-    private val googleSignInLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    private val googleSignInLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
             try {
@@ -45,23 +62,13 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val session = SessionManager(this)
+        firebaseAuth = FirebaseAuth.getInstance()
 
-        // ✅ Jika user sudah login, langsung masuk ke MainActivity
+        // ✅ Jika SUDAH login, langsung arahkan sesuai redirectTo
         if (session.isLoggedIn()) {
-            val redirectTo = intent.getStringExtra("redirectTo")
-            if (redirectTo == "history") {
-                startActivity(Intent(this, HistoryBookingActivity::class.java))
-            } else if (redirectTo == "profile") {
-                startActivity(Intent(this, ProfileActivity::class.java))
-            } else {
-                startActivity(Intent(this, MainActivity::class.java))
-            }
-            finish()
+            navigateAfterLogin()
             return
         }
-
-
-        firebaseAuth = FirebaseAuth.getInstance()
 
         // ✅ Login manual
         binding.btnLogin.setOnClickListener {
@@ -81,13 +88,13 @@ class LoginActivity : AppCompatActivity() {
                     session.saveEmail(emailInput)
                 }
 
-                val redirectTo = intent.getStringExtra("redirectTo")
-                if (redirectTo == "history") {
-                    startActivity(Intent(this, HistoryBookingActivity::class.java))
-                } else {
-                    startActivity(Intent(this, MainActivity::class.java))
-                }
-                finish()
+                getSharedPreferences("session", MODE_PRIVATE)
+                    .edit()
+                    .putString("email", emailInput)
+                    .apply()
+
+                // ✅ Redirect sesuai tujuan (satu pintu)
+                navigateAfterLogin()
 
             } else {
                 Toast.makeText(this, "Email atau password salah", Toast.LENGTH_SHORT).show()
@@ -95,8 +102,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         // ✅ Pindah ke halaman register
-        val tvRegister = findViewById<TextView>(R.id.tvRegister)
-        tvRegister.setOnClickListener {
+        findViewById<TextView>(R.id.tvRegister).setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
 
@@ -110,6 +116,7 @@ class LoginActivity : AppCompatActivity() {
 
         // ✅ Login Google
         binding.btnGoogleSignIn.setOnClickListener {
+            // signOut dulu biar selalu muncul chooser
             googleSignInClient.signOut().addOnCompleteListener {
                 signInWithGoogle()
             }
@@ -133,20 +140,47 @@ class LoginActivity : AppCompatActivity() {
                         session.saveEmail(user.email ?: "")
                         session.setLoginStatus(true)
 
+                        val email = user.email ?: ""
+                        getSharedPreferences("session", MODE_PRIVATE)
+                            .edit()
+                            .putString("email", email)
+                            .apply()
+
                         Toast.makeText(this, "Selamat datang, ${user.displayName}", Toast.LENGTH_SHORT).show()
                     }
 
-                    val redirectTo = intent.getStringExtra("redirectTo")
-                    if (redirectTo == "history") {
-                        startActivity(Intent(this, HistoryBookingActivity::class.java))
-                    } else {
-                        startActivity(Intent(this, MainActivity::class.java))
-                    }
-                    finish()
+                    // ✅ Redirect sesuai tujuan (satu pintu)
+                    navigateAfterLogin()
 
                 } else {
                     Toast.makeText(this, "Authentication Failed.", Toast.LENGTH_SHORT).show()
                 }
             }
+    }
+
+    /** Satu pintu redirect + normalisasi alias */
+    private fun navigateAfterLogin() {
+        val raw = intent.getStringExtra(EXTRA_REDIRECT_TO)?.trim()
+        Log.d("LoginActivity", "redirectTo raw intent extra = $raw")
+
+        when {
+            raw != null && HISTORY_ALIASES.contains(raw) -> {
+                startActivity(Intent(this, HistoryBookingActivity::class.java).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                })
+            }
+            raw != null && PROFILE_ALIASES.contains(raw) -> {
+                startActivity(Intent(this, ProfileActivity::class.java).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                })
+            }
+            else -> {
+                // default fallback
+                startActivity(Intent(this, MainActivity::class.java).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                })
+            }
+        }
+        finish()
     }
 }

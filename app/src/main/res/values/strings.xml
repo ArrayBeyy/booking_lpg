@@ -6,6 +6,10 @@
     <string name="default_web_client_id">57431131411-e0eqv0jm7qpn19jb2iq63un0l8vdh6m9.apps.googleusercontent.com</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="notifikasi">Notifikasi</string>
+    <string name="akun">Akun</string>
+    <string name="search">Search</string>
+
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris

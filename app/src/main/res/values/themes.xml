@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Bookinglapangan" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Bookinglapangan" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -18,6 +18,16 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
+
+    <style name="Theme.BookingLapangan" parent="Theme.MaterialComponents.DayNight.NoActionBar"/>
+
+    <style name="Theme.BookingLapangan.Splash" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- background instan saat activity dibuat -->
+        <item name="android:windowBackground">@drawable/splash_background</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
 </resources>
 
 

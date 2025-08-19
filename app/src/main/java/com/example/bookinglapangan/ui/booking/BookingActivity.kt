@@ -14,7 +14,6 @@ import com.example.bookinglapangan.data.api.RetrofitClient
 import com.example.bookinglapangan.databinding.ActivityBookingBinding
 import com.example.bookinglapangan.ui.Lapangan.LapanganViewModel
 import com.example.bookinglapangan.ui.payment.XenditWebViewActivity
-import com.google.gson.annotations.SerializedName
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -28,8 +27,9 @@ class BookingActivity : AppCompatActivity() {
     private var selectedHarga: Int? = null
     private var latestBookingId: Int = 0
     private var latestTotalHarga: Int = 0
+    private var creatingPayment = false // ADD: debounce
 
-    // CHANGE: Activity Result untuk menerima status dari XenditWebViewActivity
+    // Terima status balik dari XenditWebViewActivity
     private val payLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -38,7 +38,7 @@ class BookingActivity : AppCompatActivity() {
             val externalId = result.data!!.getStringExtra("external_id").orEmpty()
             Toast.makeText(this, "Pembayaran: $status", Toast.LENGTH_LONG).show()
             Log.d("PAYMENT_RESULT", "external_id=$externalId, status=$status")
-            // TODO: update UI/DB sesuai status. Misal: mark booking sebagai paid jika status == "PAID"
+            // TODO: update UI/DB kalau perlu (mis. tandai booking paid)
         } else {
             Toast.makeText(this, "Pembayaran dibatalkan / gagal", Toast.LENGTH_SHORT).show()
         }
@@ -53,22 +53,45 @@ class BookingActivity : AppCompatActivity() {
         lapanganViewModel.fetchLapangan()
         setupLapanganDropdown()
 
+        // ADD: sembunyikan tombol bayar di awal
+        binding.btnBayarSekarang.visibility = View.GONE
+
         binding.btnBooking.setOnClickListener {
             handleBookingSubmit()
         }
 
-        // CHANGE: tombol Bayar Sekarang sekarang memanggil createInvoice ke backend,
-        // lalu membuka XenditWebViewActivity dengan extras yang BENAR (pakai constants)
+        // BAYAR SEKARANG → hit API create-payment (harus kirim email), lalu buka WebView Xendit
         binding.btnBayarSekarang.setOnClickListener {
-            // Pastikan sudah ada total harga
+            Log.d("PAY", "btnBayarSekarang: CLICKED")
+
+            if (creatingPayment) {
+                Log.w("PAY", "createPayment: blocked (still running)") // debounce
+                return@setOnClickListener
+            }
+
             val amount = if (latestTotalHarga > 0) latestTotalHarga else hitungTotalHargaDariForm()
             val lapanganId = selectedLapanganId
 
-            if (lapanganId == null || amount <= 0) {
-                Toast.makeText(this, "Lakukan booking / lengkapi data dulu", Toast.LENGTH_SHORT).show()
+            if (lapanganId == null) {
+                Toast.makeText(this, "Pilih lapangan dulu", Toast.LENGTH_SHORT).show()
+                Log.w("PAY", "lapanganId NULL -> abort")
                 return@setOnClickListener
             }
-            startPayment(amount, lapanganId)
+            if (amount <= 0) {
+                Toast.makeText(this, "Masukkan jam mulai/selesai yang valid", Toast.LENGTH_SHORT).show()
+                Log.w("PAY", "amount <= 0 -> abort")
+                return@setOnClickListener
+            }
+
+            // Ambil email user dari sesi/login kamu
+            val email = getSharedPreferences("session", MODE_PRIVATE).getString("email", null)
+            if (email.isNullOrBlank()) {
+                Toast.makeText(this, "Email user tidak ditemukan. Harap login dulu.", Toast.LENGTH_LONG).show()
+                Log.w("PAY", "email NULL -> abort")
+                return@setOnClickListener
+            }
+
+            startPayment(amount, lapanganId, email)
         }
     }
 
@@ -129,6 +152,7 @@ class BookingActivity : AppCompatActivity() {
                     latestBookingId = 0 // TODO: isi dari response backend jika sudah mengembalikan id booking
                     latestTotalHarga = totalHarga
 
+                    // FIX: tampilkan tombol bayar setelah booking sukses
                     binding.btnBayarSekarang.visibility = View.VISIBLE
 
                     val local = Booking(
@@ -143,8 +167,6 @@ class BookingActivity : AppCompatActivity() {
                         repeat_weekly = repeat
                     )
                     BookingStorage.saveBooking(this@BookingActivity, local)
-
-                    // Biarkan form terisi agar user bisa langsung tekan Bayar Sekarang
                 } else {
                     val error = response.errorBody()?.string()
                     Log.e("BOOKING_ERROR", "Error: $error")
@@ -157,7 +179,7 @@ class BookingActivity : AppCompatActivity() {
         }
     }
 
-    // CHANGE: fungsi hitung total harga (dipakai juga saat bayar sekarang kalau user belum tekan booking)
+    // Hitung total harga dari jam & harga per jam lapangan
     private fun hitungTotalHargaDariForm(): Int {
         val jamMulai = binding.etJamMulai.text.toString().trim()
         val jamSelesai = binding.etJamSelesai.text.toString().trim()
@@ -172,35 +194,51 @@ class BookingActivity : AppCompatActivity() {
         }
     }
 
-    // CHANGE: panggil backend untuk create invoice → buka XenditWebViewActivity
-    private fun startPayment(amount: Int, lapanganId: Int) {
+    // Panggil backend create-payment → buka XenditWebViewActivity
+    private fun startPayment(amount: Int, lapanganId: Int, email: String) {
+        Log.d("PAY", "startPayment: amount=$amount, lapanganId=$lapanganId, email=$email")
+
+        creatingPayment = true // ADD: debounce aktif
+        binding.btnBayarSekarang.isEnabled = false // ADD: cegah double tap
+
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val body = mapOf(
-                    "amount" to amount,          // Int
-                    "lapangan_id" to lapanganId, // Int
+                    "email" to email,
+                    "amount" to amount,
+                    "lapangan_id" to lapanganId,
                     "description" to "Booking Lapangan #$lapanganId"
                 )
+                Log.d("PAY", "createPayment(): CALLING with $body")
+
                 val resp = RetrofitClient.apiService.createPayment(body)
 
-                withContext(Dispatchers.Main) {
-                    val invoiceUrl = resp.invoice_url ?: ""
-                    val externalId = resp.external_id ?: ""
+                // dukung camelCase/snake_case sesuai model respons kamu
+                val invoiceUrl = resp.invoiceUrl ?: ""
+                val externalId = resp.externalId ?: ""
 
+
+                withContext(Dispatchers.Main) {
+                    Log.d("PAY", "createPayment(): OK url=$invoiceUrl, ext=$externalId")
                     if (invoiceUrl.isBlank() || externalId.isBlank()) {
-                        Toast.makeText(this@BookingActivity, "Invoice tidak valid", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@BookingActivity, "Invoice tidak valid dari server", Toast.LENGTH_LONG).show()
                         return@withContext
                     }
-
                     val intent = Intent(this@BookingActivity, XenditWebViewActivity::class.java).apply {
                         putExtra(XenditWebViewActivity.EXTRA_INVOICE_URL, invoiceUrl)
                         putExtra(XenditWebViewActivity.EXTRA_EXTERNAL_ID, externalId)
                     }
-                    startActivity(intent)
+                    payLauncher.launch(intent) // buka WebView Xendit
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
+                    Log.e("PAY", "createPayment(): ERROR ${e.message}", e)
                     Toast.makeText(this@BookingActivity, "Gagal create payment: ${e.message}", Toast.LENGTH_LONG).show()
+                }
+            } finally {
+                withContext(Dispatchers.Main) {
+                    creatingPayment = false // ADD: debounce off
+                    binding.btnBayarSekarang.isEnabled = true
                 }
             }
         }

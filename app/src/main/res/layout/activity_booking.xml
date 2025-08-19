@@ -1,104 +1,245 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="40dp"
-    android:background="?android:colorBackground">
+    android:fitsSystemWindows="true">
 
-<LinearLayout
-        android:orientation="vertical"
+    <!-- App Bar -->
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
 
-        <!-- Nama -->
-        <EditText
-            android:id="@+id/etNama"
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Nama Pemesan"
-            android:inputType="textPersonName"
-            android:layout_marginBottom="12dp" />
+            android:layout_height="?attr/actionBarSize"
+            app:title="Booking Lapangan"
+            app:navigationIconTint="?attr/colorOnSurface"
+            app:titleCentered="true" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-        <!-- Tanggal -->
-        <EditText
-            android:id="@+id/etTanggal"
+    <!-- Content (gantikan DynamicColorsWrap dengan FrameLayout) -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Tanggal (dd-mm-yyyy)"
-            android:inputType="date"
-            android:layout_marginBottom="12dp" />
+            android:layout_height="match_parent"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="24dp">
 
-        <!-- Jam Mulai -->
-        <EditText
-            android:id="@+id/etJamMulai"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Jam Mulai (HH:mm)"
-            android:inputType="time"
-            android:layout_marginBottom="12dp" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <!-- Jam Selesai -->
-        <EditText
-            android:id="@+id/etJamSelesai"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Jam Selesai (HH:mm)"
-            android:inputType="time"
-            android:layout_marginBottom="12dp" />
+                <!-- Card Form -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardUseCompatPadding="true"
+                    app:strokeWidth="1dp">
 
-        <!-- Pilih Lapangan -->
-        <AutoCompleteTextView
-            android:id="@+id/etPilihLapangan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Pilih Lapangan"
-            android:inputType="text"
-            android:layout_marginBottom="12dp" />
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-        <!-- Status Lapangan -->
-        <TextView
-            android:id="@+id/tvStatusLapangan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Status: -"
-            android:layout_marginBottom="20dp"
-            android:textStyle="italic" />
+                        <!-- Nama -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:hintEnabled="true"
+                            app:boxBackgroundMode="outline"
+                            app:boxCornerRadiusTopStart="16dp"
+                            app:boxCornerRadiusTopEnd="16dp"
+                            app:boxCornerRadiusBottomStart="16dp"
+                            app:boxCornerRadiusBottomEnd="16dp">
 
-        <RadioGroup
-            android:id="@+id/rgStatus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etNama"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Nama Pemesan"
+                                android:inputType="textPersonName" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-            <RadioButton
-                android:id="@+id/rbFull"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Full" />
+                        <!-- Tanggal -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            app:hintEnabled="true"
+                            app:endIconMode="custom"
+                            app:endIconDrawable="@android:drawable/ic_menu_today"
+                            app:boxBackgroundMode="outline"
+                            app:boxCornerRadiusTopStart="16dp"
+                            app:boxCornerRadiusTopEnd="16dp"
+                            app:boxCornerRadiusBottomStart="16dp"
+                            app:boxCornerRadiusBottomEnd="16dp">
 
-            <RadioButton
-                android:id="@+id/rbDp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="DP" />
-        </RadioGroup>
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etTanggal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Tanggal (dd-MM-yyyy)"
+                                android:focusable="false"
+                                android:clickable="true" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
+                        <!-- Jam Mulai -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            app:endIconMode="custom"
+                            app:endIconDrawable="@android:drawable/ic_menu_recent_history"
+                            app:boxBackgroundMode="outline"
+                            app:boxCornerRadiusTopStart="16dp"
+                            app:boxCornerRadiusTopEnd="16dp"
+                            app:boxCornerRadiusBottomStart="16dp"
+                            app:boxCornerRadiusBottomEnd="16dp">
 
-        <!-- Tombol Booking -->
-        <Button
-            android:id="@+id/btnBooking"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Kirim Booking" />
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etJamMulai"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Jam Mulai (HH:mm)"
+                                android:focusable="false"
+                                android:clickable="true" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/btnBayarSekarang"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Bayar Sekarang"
-            android:visibility="gone" />
+                        <!-- Jam Selesai -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            app:endIconMode="custom"
+                            app:endIconDrawable="@android:drawable/ic_menu_recent_history"
+                            app:boxBackgroundMode="outline"
+                            app:boxCornerRadiusTopStart="16dp"
+                            app:boxCornerRadiusTopEnd="16dp"
+                            app:boxCornerRadiusBottomStart="16dp"
+                            app:boxCornerRadiusBottomEnd="16dp">
 
-    </LinearLayout>
-</ScrollView>
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etJamSelesai"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Jam Selesai (HH:mm)"
+                                android:focusable="false"
+                                android:clickable="true" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Pilih Lapangan -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            app:boxBackgroundMode="outline"
+                            app:boxCornerRadiusTopStart="16dp"
+                            app:boxCornerRadiusTopEnd="16dp"
+                            app:boxCornerRadiusBottomStart="16dp"
+                            app:boxCornerRadiusBottomEnd="16dp"
+                            app:endIconMode="dropdown_menu">
+
+                            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                                android:id="@+id/etPilihLapangan"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Pilih Lapangan"
+                                android:inputType="none" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Status Lapangan -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:id="@+id/tvStatusLapangan"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Status: -"
+                                android:textStyle="italic" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipAvail"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Cek Ketersediaan"
+                                android:clickable="false"
+                                android:checkable="false" />
+                        </LinearLayout>
+
+                        <!-- Toggle Full / DP -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Jenis Pembayaran"
+                            android:layout_marginTop="16dp"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.button.MaterialButtonToggleGroup
+                            android:id="@+id/rgStatus"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            app:singleSelection="true"
+                            app:selectionRequired="true">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/rbFull"
+                                style="@style/Widget.Material3.Button.OutlinedButton"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Full" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/rbDp"
+                                style="@style/Widget.Material3.Button.OutlinedButton"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="DP" />
+                        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Tombol Aksi -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnBooking"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Kirim Booking"
+                    android:minHeight="56dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnBayarSekarang"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Bayar Sekarang"
+                    android:visibility="gone"
+                    android:minHeight="56dp" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

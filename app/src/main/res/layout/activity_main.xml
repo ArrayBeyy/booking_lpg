@@ -2,128 +2,40 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:forceDarkAllowed="false"
+    android:background="@color/white">
 
-    <!-- Content ScrollView -->
-    <androidx.core.widget.NestedScrollView
+    <!-- NAV HOST: semua konten halaman akan dirender di sini -->
+    <fragment
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
-        android:clipToPadding="false"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <!-- Header -->
-            <TextView
-                android:id="@+id/tvWelcome"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Sewa Lapangan"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:textColor="#212121"
-                android:gravity="center"
-                android:paddingVertical="16dp" />
-
-            <!-- Banner -->
-            <ImageView
-                android:id="@+id/imageBanner"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/bt_bg"
-                android:layout_marginBottom="24dp"
-                android:contentDescription="Banner" />
-            <!-- Promo -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="148dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
-
-                <LinearLayout
-                    android:layout_width="154dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:contentDescription="Promo"
-                        android:src="@drawable/cart_bg" />
-
-                    <Button
-                        android:id="@+id/btnPenjualan"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="Store" />
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-
-            <!-- Booking & Logout Buttons -->
-            <Button
-                android:id="@+id/btnBooking"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Booking Sekarang"
-                android:backgroundTint="#388E3C"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
-                android:layout_marginBottom="12dp" />
-
-            <Button
-                android:id="@+id/btnLogout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Logout"
-                android:textColor="#FFFFFF"
-                android:backgroundTint="#D32F2F" />
-
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
-
-    <!-- FloatingActionButton QR di Tengah Bawah -->
-
-    <FrameLayout
-        android:id="@+id/fragmentContainer"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
+    <!-- FAB di tengah bawah (opsional) -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnScanQr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="30dp"
         app:srcCompat="@drawable/ic_camera"
         app:backgroundTint="@color/purple_500"
         app:tint="@android:color/white" />
 
-    <!-- Bottom Navigation View -->
+    <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
+        android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@android:color/white"
+        android:background="@color/white"
         app:menu="@menu/bottom_nav_menu"
-        app:fabCradleMargin="12dp"
-        app:fabCradleRoundedCornerRadius="28dp"
         app:itemIconTint="@color/nav_item_color"
         app:itemTextColor="@color/nav_item_color"
         app:labelVisibilityMode="labeled" />
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

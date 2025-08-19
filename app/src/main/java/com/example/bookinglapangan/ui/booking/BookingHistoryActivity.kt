@@ -2,6 +2,7 @@ package com.example.bookinglapangan.ui.booking
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bookinglapangan.databinding.ActivityBookingHistoryBinding
@@ -21,34 +22,45 @@ class HistoryBookingActivity : AppCompatActivity() {
         binding = ActivityBookingHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Inisialisasi awal UI sesuai status login saat ini
+        applyLoginState()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Saat kembali dari Login, refresh tampilan & data
+        applyLoginState()
+    }
+
+    /** Cek login lalu atur tampilan + aksi yang benar */
+    private fun applyLoginState() {
         val currentUser = FirebaseAuth.getInstance().currentUser
         val session = SessionManager(this)
 
-        if (currentUser == null && session.getName() == null) {
-            // User BELUM login → tampilkan guest layout
+        val loggedIn = (currentUser != null) || (session.getName() != null) || session.isLoggedIn()
+
+        if (!loggedIn) {
+            // User BELUM login → tampilkan guest layout dan tombol Login yang mengirim redirectTo=history
             showGuestLayout()
-
             binding.btnLoginGuest.setOnClickListener {
-                val intent = Intent(this, LoginActivity::class.java)
-                intent.putExtra("redirectTo", "history")  // ⬅️ Kirim informasi tujuan
-                startActivity(intent)}
-
+                startActivity(Intent(this, LoginActivity::class.java).apply {
+                    putExtra("redirectTo", "history") // PENTING: kirim tujuan setelah login
+                })
+            }
         } else {
-            // User SUDAH login → tampilkan konten user
+            // User SUDAH login → tampilkan konten
             showUserLayout()
-            setupRecyclerView()
+            setupRecyclerViewIfNeeded()
             loadHistory()
-        }
-
-        binding.btnLoginGuest.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
         }
     }
 
-    private fun setupRecyclerView() {
-        adapter = HistoryBookingAdapter(historyList)
-        binding.rvHistoryBooking.layoutManager = LinearLayoutManager(this)
-        binding.rvHistoryBooking.adapter = adapter
+    private fun setupRecyclerViewIfNeeded() {
+        if (!::adapter.isInitialized) {
+            adapter = HistoryBookingAdapter(historyList)
+            binding.rvHistoryBooking.layoutManager = LinearLayoutManager(this)
+            binding.rvHistoryBooking.adapter = adapter
+        }
     }
 
     private fun loadHistory() {
@@ -84,17 +96,16 @@ class HistoryBookingActivity : AppCompatActivity() {
 
         historyList.clear()
         historyList.addAll(userBookings.map { it.toDisplay() })
-
         adapter.notifyDataSetChanged()
     }
 
     private fun showGuestLayout() {
-        binding.guestLayout.visibility = android.view.View.VISIBLE
-        binding.rvHistoryBooking.visibility = android.view.View.GONE
+        binding.guestLayout.visibility = View.VISIBLE
+        binding.rvHistoryBooking.visibility = View.GONE
     }
 
     private fun showUserLayout() {
-        binding.guestLayout.visibility = android.view.View.GONE
-        binding.rvHistoryBooking.visibility = android.view.View.VISIBLE
+        binding.guestLayout.visibility = View.GONE
+        binding.rvHistoryBooking.visibility = View.VISIBLE
     }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardLapangan"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="12dp"
@@ -10,32 +11,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="88dp"
-        android:orientation="vertical"
-        android:padding="14dp">
+        android:minHeight="72dp"
+        android:gravity="center_vertical"
+        android:padding="14dp"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tvNamaLapangan"
+            android:id="@+id/tvName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Lapanggan Surabaya"
+            android:text="Lapanggan Pengki"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tvLokasiLapangan"
+            android:id="@+id/tvAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Lokasi: -"
-            android:layout_marginTop="4dp"
-            android:textColor="?android:attr/textColorSecondary" />
-
-        <TextView
-            android:id="@+id/tvHargaLapangan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Rp 0"
-            android:layout_marginTop="2dp"
-            android:textColor="?android:attr/textColorSecondary" />
+            android:text="Alamat tersedia nanti"
+            android:textColor="?android:attr/textColorSecondary"
+            android:layout_marginTop="4dp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

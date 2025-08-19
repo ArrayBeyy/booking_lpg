@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.bookinglapangan">
-    <!-- Izin internet -->
-    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- Opsional (untuk Scan QR) -->
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:name=".BookingApp"
@@ -13,41 +15,38 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Bookinglapangan">
+
+        <!-- SPLASH jadi LAUNCHER, pakai style: Theme.BookingLapangan.Splash -->
         <activity
-            android:name=".ui.QR.ScanQrActivity"
-            android:exported="false" />
+            android:name=".ui.splash.SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.BookingLapangan.Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <!-- MainActivity dibuka dari Splash -->
         <activity
-            android:name=".ui.store.PenjualanActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.payment.XenditWebViewActivity"
+            android:name=".MainActivity"
+            android:exported="true" />
+
+        <!-- Activities lain -->
+        <activity android:name=".ui.login.LoginActivity" android:exported="false"/>
+        <activity android:name=".ui.profile.ProfileActivity" android:exported="false"/>
+        <activity android:name=".ui.booking.HistoryBookingActivity" android:exported="false"/>
+        <activity android:name=".ui.QR.ScanQrActivity" android:exported="false"/>
+        <activity android:name=".ui.store.PenjualanActivity" android:exported="false"/>
+        <activity android:name=".ui.payment.XenditWebViewActivity"
             android:exported="true"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"/>
-        <activity
-            android:name=".ui.profile.ProfileActivity"
-            android:exported="false" />
-        <activity android:name=".ui.booking.HistoryBookingActivity" />
-        <activity
-            android:name=".ui.login.LoginActivity"
-            android:exported="false"/>
-        <activity android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <!-- BookingActivity -->
-        <activity
-            android:name=".ui.booking.BookingActivity"
-            android:exported="false" /> <!-- RegisterActivity -->
-        <activity
-            android:name=".ui.register.RegisterActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.lapangan.LapanganActivity"
-            android:exported="false" />
-    </application>
+        <activity android:name=".ui.booking.BookingActivity" android:exported="false"/>
+        <activity android:name=".ui.register.RegisterActivity" android:exported="false"/>
+        <activity android:name=".ui.lapangan.LapanganActivity" android:exported="false"/>
 
+        <!-- HAPUS entri ini kalau sebelumnya ada (Fragment tidak perlu didaftarkan sebagai Activity):
+             .ui.news.NewsFragment, .ui.search.SearchFragment, .ui.Lapangan.LapanganListFragment -->
+    </application>
 </manifest>

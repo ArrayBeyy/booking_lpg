@@ -1,36 +1,40 @@
-/*package com.example.bookinglapangan.ui.Lapangan
+package com.example.bookinglapangan.ui.lapangan
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bookinglapangan.R
+import com.example.bookinglapangan.ui.Lapangan.Lapangan
 
-class LapanganAdapter(private val list: List<Lapangan>) : RecyclerView.Adapter<LapanganAdapter.LapanganViewHolder>() {
+class LapanganAdapter(
+    private val items: List<Lapangan>,
+    private val onClick: (Lapangan) -> Unit
+) : RecyclerView.Adapter<LapanganAdapter.VH>() {
 
-    class LapanganViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        val nama: TextView = view.findViewById(R.id.tvNamaLapangan)
-        val status: TextView = view.findViewById(R.id.tvStatus)
-    }
+    inner class VH(v: View) : RecyclerView.ViewHolder(v) {
+        private val card: CardView = v as CardView
+        private val tvNama: TextView = v.findViewById(R.id.tvNamaLapangan)
+        private val tvLokasi: TextView = v.findViewById(R.id.tvLokasiLapangan)
+        private val tvHarga: TextView = v.findViewById(R.id.tvHargaLapangan)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LapanganViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_lapangan, parent, false)
-        return LapanganViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: LapanganViewHolder, position: Int) {
-        val lapangan = list[position]
-        holder.nama.text = lapangan.nama
-        holder.status.text = lapangan.status.capitalize()
-
-        if (lapangan.status == "tersedia") {
-            holder.status.setTextColor(Color.GREEN)
-        } else {
-            holder.status.setTextColor(Color.RED)
+        fun bind(item: Lapangan) {
+            tvNama.text = item.nama
+            tvLokasi.text = "Lokasi: ${item.lokasi}"
+            tvHarga.text = "Rp ${item.harga_per_jam}"
+            card.setOnClickListener { onClick(item) }
         }
     }
 
-    override fun getItemCount() = list.size
-}*/
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_lapangan, parent, false)
+        return VH(view)
+    }
+
+    override fun onBindViewHolder(holder: VH, position: Int) = holder.bind(items[position])
+
+    override fun getItemCount(): Int = items.size
+}

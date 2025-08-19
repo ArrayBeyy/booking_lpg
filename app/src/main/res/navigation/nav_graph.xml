@@ -3,26 +3,58 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/nav_home">
 
+    <!-- HOME (id disamakan dengan item menu bottom nav) -->
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.bookinglapangan.ui.login.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        android:id="@+id/nav_home"
+        android:name="com.example.bookinglapangan.ui.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
 
+        <!-- optional actions dari Home -->
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_home_to_search"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_home_to_lapanganList"
+            app:destination="@id/lapanganListFragment" />
     </fragment>
+
+    <!-- PESANAN (opsional; tambahkan kalau kamu punya OrdersFragment) -->
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.bookinglapangan.ui.login.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        android:id="@+id/nav_orders"
+        android:name="com.example.bookinglapangan.ui.orders.OrdersFragment"
+        android:label="Pesanan"
+        tools:layout="@layout/fragment_placeholder" />
 
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
+    <!-- NEWS (tab pengganti Store) -->
+    <fragment
+        android:id="@+id/nav_news"
+        android:name="com.example.bookinglapangan.ui.news.NewsFragment"
+        android:label="News"
+        tools:layout="@layout/fragment_news" />
+
+    <!-- AKUN -->
+    <fragment
+        android:id="@+id/nav_account"
+        android:name="com.example.bookinglapangan.ui.account.AccountFragment"
+        android:label="Akun"
+        tools:layout="@layout/fragment_placeholder" />
+
+    <!-- Pencarian -->
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.bookinglapangan.ui.search.SearchFragment"
+        android:label="Search"
+        tools:layout="@layout/fragment_placeholder" />
+
+    <!-- Daftar lapangan per kategori -->
+    <fragment
+        android:id="@+id/lapanganListFragment"
+        android:name="com.example.bookinglapangan.ui.lapangan.LapanganListFragment"
+        android:label="Lapangan"
+        tools:layout="@layout/fragment_lapangan_list" />
+
+
 </navigation>
