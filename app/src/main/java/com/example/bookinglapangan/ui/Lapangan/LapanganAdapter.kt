@@ -1,40 +1,42 @@
 package com.example.bookinglapangan.ui.lapangan
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.bookinglapangan.R
-import com.example.bookinglapangan.ui.Lapangan.Lapangan
+import com.bumptech.glide.Glide
+import com.example.bookinglapangan.data.model.LapanganItem
+import com.example.bookinglapangan.databinding.ItemLapanganBinding
 
 class LapanganAdapter(
-    private val items: List<Lapangan>,
-    private val onClick: (Lapangan) -> Unit
-) : RecyclerView.Adapter<LapanganAdapter.VH>() {
+    private val onClick: (LapanganItem) -> Unit
+) : ListAdapter<LapanganItem, LapanganAdapter.VH>(diff) {
 
-    inner class VH(v: View) : RecyclerView.ViewHolder(v) {
-        private val card: CardView = v as CardView
-        private val tvNama: TextView = v.findViewById(R.id.tvNamaLapangan)
-        private val tvLokasi: TextView = v.findViewById(R.id.tvLokasiLapangan)
-        private val tvHarga: TextView = v.findViewById(R.id.tvHargaLapangan)
+    object diff : DiffUtil.ItemCallback<LapanganItem>() {
+        override fun areItemsTheSame(o: LapanganItem, n: LapanganItem) = o.id == n.id
+        override fun areContentsTheSame(o: LapanganItem, n: LapanganItem) = o == n
+    }
 
-        fun bind(item: Lapangan) {
-            tvNama.text = item.nama
-            tvLokasi.text = "Lokasi: ${item.lokasi}"
-            tvHarga.text = "Rp ${item.harga_per_jam}"
-            card.setOnClickListener { onClick(item) }
+    inner class VH(val binding: ItemLapanganBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: LapanganItem) = with(binding) {
+            tvNamaLapangan.text   = item.nama
+            tvHargaLapangan.text  = "${item.harga_per_jam / 1000}K /lapangan/jam"
+            tvRating.text = (item.rating ?: 0f).toString()
+            tvLokasiLapangan.text   = item.kota ?: "-"
+            val url = item.foto.firstOrNull()
+            Glide.with(root).load(url).into(ivFoto)
+
+            // ⬇️ pakai 'item', bukan 'it' (View)
+            root.setOnClickListener { onClick(item) }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_lapangan, parent, false)
-        return VH(view)
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ItemLapanganBinding.inflate(inflater, parent, false)
+        return VH(binding)
     }
 
-    override fun onBindViewHolder(holder: VH, position: Int) = holder.bind(items[position])
-
-    override fun getItemCount(): Int = items.size
+    override fun onBindViewHolder(holder: VH, position: Int) = holder.bind(getItem(position))
 }

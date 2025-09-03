@@ -1,41 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
-    app:cardCornerRadius="14dp"
-    app:cardElevation="3dp">
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginTop="12dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="88dp"
-        android:orientation="vertical"
+        android:minHeight="112dp"
         android:padding="14dp">
 
-        <TextView
-            android:id="@+id/tvNamaLapangan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Lapanggan Surabaya"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+        <!-- FOTO DI KANAN -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivFoto"
+            android:layout_width="120dp"
+            android:layout_height="0dp"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:shapeAppearanceOverlay="@style/RoundedImageCorners"
+            app:srcCompat="@drawable/placeholder_image"
+            app:layout_constraintDimensionRatio="4:3" />
 
-        <TextView
-            android:id="@+id/tvLokasiLapangan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Lokasi: -"
-            android:layout_marginTop="4dp"
-            android:textColor="?android:attr/textColorSecondary" />
-
+        <!-- HARGA (KIRI ATAS) -->
         <TextView
             android:id="@+id/tvHargaLapangan"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Rp 0"
-            android:layout_marginTop="2dp"
-            android:textColor="?android:attr/textColorSecondary" />
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="@color/red_600"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ivFoto"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_goneMarginEnd="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="20K /lapangan/jam" />
+
+        <!-- RATING (BINTANG + ANGKA) -->
+        <LinearLayout
+            android:id="@+id/rowRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="4dp"
+            app:layout_constraintTop_toBottomOf="@id/tvHargaLapangan"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:textColor="@color/amber_500"
+                app:srcCompat="@drawable/ic_star_filled" />
+
+            <TextView
+                android:id="@+id/tvRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="5"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- NAMA VENUE -->
+        <TextView
+            android:id="@+id/tvNamaLapangan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            app:layout_constraintTop_toBottomOf="@id/rowRating"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ivFoto"
+            app:layout_goneMarginEnd="8dp"
+            android:text="Laparaga Sports Center Puspowarno : Tenis Meja" />
+
+        <!-- KOTA / LOKASI -->
+        <TextView
+            android:id="@+id/tvLokasiLapangan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/gray_600"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintTop_toBottomOf="@id/tvNamaLapangan"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ivFoto"
+            app:layout_goneMarginEnd="8dp"
+            android:text="Semarang" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

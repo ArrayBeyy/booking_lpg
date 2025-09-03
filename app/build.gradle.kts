@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
+    id ("kotlin-parcelize")
 }
 
 android {
@@ -111,6 +112,13 @@ dependencies {
     //splash
     implementation ("androidx.core:core-splashscreen:1.0.1")
     implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.8.4")
+
+    //image
+    implementation ("io.coil-kt:coil:2.6.0")
+
+    // Glide
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+
 
 }
 

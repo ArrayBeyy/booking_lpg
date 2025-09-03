@@ -10,5 +10,8 @@
     <color name="gray">#9E9E9E</color>
     <color name="green">#218545</color>
     <color name="secondaryText">#757575</color> <!-- abu abu -->
+    <color name="red_600">#E53935</color>
+    <color name="amber_500">#FFC107</color>
+    <color name="gray_600">#757575</color>
 
 </resources>

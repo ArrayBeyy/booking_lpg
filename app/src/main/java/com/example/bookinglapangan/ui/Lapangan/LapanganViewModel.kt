@@ -11,7 +11,7 @@ class LapanganViewModel : ViewModel() {
     private val _lapanganList = MutableLiveData<List<Lapangan>>()
     val lapanganList: LiveData<List<Lapangan>> get() = _lapanganList
 
-    fun fetchLapangan() {
+    fun fetchLapangan(jenis: String? = null, sportId: Int? = null) {
         viewModelScope.launch {
             try {
                 val response = RetrofitClient.apiService.getLapangans()

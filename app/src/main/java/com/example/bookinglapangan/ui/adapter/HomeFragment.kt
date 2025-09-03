@@ -1,5 +1,6 @@
 package com.example.bookinglapangan.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -20,6 +21,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
+    // Simpan mediator biar bisa di-detach saat onDestroyView (hindari leak)
+    private var bannerMediator: TabLayoutMediator? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentHomeBinding.bind(view)
@@ -28,7 +32,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.etSearch.setOnEditorActionListener { v, actionId, _ ->
             val q = v.text?.toString()?.trim().orEmpty()
             if (actionId == EditorInfo.IME_ACTION_SEARCH && q.isNotEmpty()) {
-                // pastikan id "searchFragment" ada di nav_graph
                 findNavController().navigate(
                     R.id.searchFragment,
                     bundleOf("query" to q)
@@ -45,9 +48,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         )
         val bannerAdapter = BannerAdapter(banners)
         binding.vpBanner.adapter = bannerAdapter
-        TabLayoutMediator(binding.tabsIndicator, binding.vpBanner) { _, _ -> }.attach()
+        bannerMediator = TabLayoutMediator(binding.tabsIndicator, binding.vpBanner) { _, _ -> }
+            .also { it.attach() }
 
-        // === Kategori (dummy) ===
+        // === Kategori ===
         val categories = listOf(
             SportCategory("tenis_meja", "Tenis Meja", R.drawable.cat_tenis_meja),
             SportCategory("padel", "Padel", R.drawable.cat_padel),
@@ -58,14 +62,19 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         )
 
         val catAdapter = CategoryAdapter(categories) { item ->
-            // buka daftar lapangan sesuai kategori
-            findNavController().navigate(
-                R.id.lapanganListFragment,
-                bundleOf("categoryId" to item.id, "categoryName" to item.title)
-            )
+            // 👉 buka LapanganActivity (grid lapangan dari Laravel)
+            val ctx = requireContext()
+            val i = Intent(ctx, com.example.bookinglapangan.ui.lapangan.LapanganActivity::class.java).apply {
+                // kirim info kategori (slug) & display name
+                putExtra("jenis_olahraga", item.id)   // contoh: "bulu_tangkis"
+                putExtra("categoryId", item.id)       // kalau perlu konsisten slug
+                putExtra("categoryName", item.title)  // untuk judul toolbar
+            }
+            startActivity(i)
         }
         binding.rvCategories.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.rvCategories.adapter = catAdapter
+        binding.rvCategories.setHasFixedSize(true)
 
         if (binding.rvCategories.itemDecorationCount == 0) {
             binding.rvCategories.addItemDecoration(
@@ -73,11 +82,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             )
         }
 
+        // Beri bottom padding biar tidak ketutup tombol/bottom bar
         binding.rvCategories.setPadding(
             binding.rvCategories.paddingLeft,
             binding.rvCategories.paddingTop,
             binding.rvCategories.paddingRight,
-            dp(160) // 150–180dp aman, silakan sesuaikan
+            dp(160)
         )
         binding.rvCategories.clipToPadding = false
     }
@@ -87,6 +97,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        // Hindari leak: lepas mediator & adapter
+        bannerMediator?.detach()
+        bannerMediator = null
+        binding.vpBanner.adapter = null
+        binding.rvCategories.adapter = null
         _binding = null
     }
 }
